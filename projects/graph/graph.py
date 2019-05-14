@@ -8,27 +8,43 @@ class Graph:
     def __init__(self):
         self.vertices = {}
     def add_vertex(self, vertex):
-        """
-        Add a vertex to the graph.
-        """
-        pass  # TODO
+        self.vertices.setdefault(vertex, set())
+
     def add_edge(self, v1, v2):
-        """
-        Add a directed edge to the graph.
-        """
-        pass  # TODO
+        if v1 not in self.vertices.keys():
+            raise ValueError(f'{v1} is not in the vertices')
+        if v2 not in self.vertices.keys():
+            raise ValueError(f'{v2} is not in the vertices')
     def bft(self, starting_vertex):
-        """
-        Print each vertex in breadth-first order
-        beginning from starting_vertex.
-        """
-        pass  # TODO
+        que = Queue()
+        visited = set()
+        string = ""
+        que.enqueue(starting_vertex)
+
+        while que.size() > 0:
+            v = que.dequeue()
+            if v not in visited:
+                string += f'{v} '
+                visited.add(v)
+                for neighbor in self.vertices[v]:
+                    que.enqueue(neighbor)
+
+        print(string)
     def dft(self, starting_vertex):
-        """
-        Print each vertex in depth-first order
-        beginning from starting_vertex.
-        """
-        pass  # TODO
+        stack = Stack()
+        visited = set()
+        string = ""
+        stack.push(starting_vertex)
+
+        while stack.size() > 0: 
+            v = stack.pop()
+            if v not in visited:
+                string += f'{v} '
+                visited.add(v)
+                for neighbor in self.vertices[v]:
+                    stack.push(neighbor)
+
+        print(string)
     def dft_recursive(self, starting_vertex):
         """
         Print each vertex in depth-first order
