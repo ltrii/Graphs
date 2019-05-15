@@ -45,27 +45,48 @@ class Graph:
                     stack.push(neighbor)
 
         print(string)
-    def dft_recursive(self, starting_vertex):
-        """
-        Print each vertex in depth-first order
-        beginning from starting_vertex.
-        This should be done using recursion.
-        """
-        pass  # TODO
+
+    def dft_recursive(self, starting_vertex, visited=None):
+        if visited is None:
+            visited = set()
+        print(starting_vertex)
+        visited.add(starting_vertex)
+        for neighbor in self.vertices[starting_vertex]:
+            if neighbor not in visited:
+                self.dft_recursive(neighbor, visited)
+
     def bfs(self, starting_vertex, destination_vertex):
-        """
-        Return a list containing the shortest path from
-        starting_vertex to destination_vertex in
-        breath-first order.
-        """
-        pass  # TODO
+        q = Queue()
+        visited = set()
+        q.enqueue([starting_vertex])
+        while q.size() > 0:
+            path = q.dequeue()
+            v = path[-1]
+            if v == destination_vertex:
+                return path
+            if v not in visited:
+                visited.add(v)
+                for neighbor in self.vertices[v]:
+                    path_copy = path.copy()
+                    path_copy.append(neighbor)
+                    q.enqueue(path_copy)
+
     def dfs(self, starting_vertex, destination_vertex):
-        """
-        Return a list containing a path from
-        starting_vertex to destination_vertex in
-        depth-first order.
-        """
-        pass  # TODO
+        s = Stack()
+        visited = set()
+        s.push([starting_vertex])
+        while s.size() > 0:
+            path = s.pop()
+            v = path[-1]
+            if v == destination_vertex:
+                return path
+            if v not in visited:
+                visited.add(v)
+                print(v)
+                for neighbor in self.vertices[v]:
+                    path_copy = path.copy()
+                    path_copy.append(neighbor)
+                    s.push(path_copy)
 
 
 
