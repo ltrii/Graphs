@@ -71,6 +71,22 @@ class SocialGraph:
         """
         visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
+        storage = []
+        storage.append([userID])
+        checked = []
+        visited.update({userID: [userID]})
+        while len(storage) > 0:
+            if len(storage) > 0:
+                path = storage.pop(0)
+            n = path[-1]
+            if n not in checked:
+                checked.append(n)
+                for i in self.friendships[n]:
+                    if n > 1:
+                        visited.update({n: list(path)})
+                    next_path = list(path)
+                    next_path.append(i)
+                    storage.append(next_path)
         return visited
 
 
